@@ -33,6 +33,33 @@ class BookListView(generic.ListView):
         context['some_data'] = 'This is just some data'
         return context
 
+def author_detail_view(request,pk):
+        try:
+            author_id=Author.objects.get(pk=pk)
+        except Author.DoesNotExist:
+            raise Http404("Author does not exist")
+
+        author_id=get_object_or_404(Author, pk=pk)
+        
+        return render(request, "author_detail.html", context={'author':author_id,})
+
+class AuthorListView(generic.ListView):
+    model = Author
+    paginate_by = 10
+    context_object_name = 'author_list'   # your own name for the list as a template variable
+    #queryset = Book.objects.filter(title__icontains='war')[:5] # Get 5 books containing the title war
+    template_name = "author_list.html"  # Specify your own template name/location
+
+    def get_queryset(self):
+        return Author.objects.filter(last_name__icontains='')[:5] # Get 5 books containing the title war
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(AuthorListView, self).get_context_data(**kwargs)
+        # Get the blog from id and add it to the context
+        context['some_data'] = 'This is just some data'
+        return context
+
 
 
 def index(request):
