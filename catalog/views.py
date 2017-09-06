@@ -1,7 +1,39 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Book, Author, BookInstance, Genre
+from django.views import generic
 
 # Create your views here.
+
+
+
+def book_detail_view(request,pk):
+	    try:
+	        book_id=Book.objects.get(pk=pk)
+	    except Book.DoesNotExist:
+	        raise Http404("Book does not exist")
+
+	    book_id=get_object_or_404(Book, pk=pk)
+	    
+	    return render(request, "book_detail.html", context={'book':book_id,})
+
+class BookListView(generic.ListView):
+    model = Book
+    paginate_by = 10
+    context_object_name = 'book_list'   # your own name for the list as a template variable
+    #queryset = Book.objects.filter(title__icontains='war')[:5] # Get 5 books containing the title war
+    template_name = "book_list.html"  # Specify your own template name/location
+
+    def get_queryset(self):
+        return Book.objects.filter(title__icontains='')[:5] # Get 5 books containing the title war
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(BookListView, self).get_context_data(**kwargs)
+        # Get the blog from id and add it to the context
+        context['some_data'] = 'This is just some data'
+        return context
+
+
 
 def index(request):
     """
