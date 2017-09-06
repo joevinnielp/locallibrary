@@ -33,6 +33,7 @@ class BookListView(generic.ListView):
         context['some_data'] = 'This is just some data'
         return context
 
+
 def author_detail_view(request,pk):
         try:
             author_id=Author.objects.get(pk=pk)
@@ -40,7 +41,7 @@ def author_detail_view(request,pk):
             raise Http404("Author does not exist")
 
         author_id=get_object_or_404(Author, pk=pk)
-        
+            
         return render(request, "author_detail.html", context={'author':author_id,})
 
 class AuthorListView(generic.ListView):
