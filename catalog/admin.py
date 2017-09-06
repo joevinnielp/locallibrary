@@ -5,6 +5,7 @@ from .models import Genre, Book, BookInstance, Author
 # Define the admin class
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ('last_name', 'first_name', 'date_of_birth', 'date_of_death')
+    search_fields = ('last_name', 'first_name', 'date_of_birth', 'date_of_death')
     fields = ['first_name', 'last_name', ('date_of_birth', 'date_of_death')]
 
 # Register the admin class with the associated model
@@ -18,6 +19,7 @@ class BooksInstanceInline(admin.TabularInline):
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'display_genre')
+    search_fields = ('title', 'author', 'display_genre')
     inlines = [BooksInstanceInline]
 
 # Register the Admin classes for BookInstance using the decorator
@@ -25,6 +27,7 @@ class BookAdmin(admin.ModelAdmin):
 @admin.register(BookInstance)
 class BookInstanceAdmin(admin.ModelAdmin):
     list_filter = ('status', 'due_back')
+    search_fields = ('status', 'due_back')
     
     fieldsets = (
         (None, {
