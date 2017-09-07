@@ -53,7 +53,7 @@ class BookListView(generic.ListView):
         return context
 
 class AuthorDetailView(generic.DetailView):
-    model = Book
+    model = Author
     def get(self, request, pk):
             book = Book.objects.all()
             author = Author.objects.all()
@@ -63,13 +63,13 @@ class AuthorDetailView(generic.DetailView):
             }
 
             try:
-                book_id=Book.objects.get(pk=pk)
-            except Book.DoesNotExist:
-                raise Http404("Book does not exist")
+                author_id=Author.objects.get(pk=pk)
+            except Author.DoesNotExist:
+                raise Http404("Author does not exist")
 
             #author_id=get_object_or_404(Author, pk=pk)
                 
-            return render(request, "author_detail.html", context={'book':book_id,})
+            return render(request, "author_detail.html", context={'author':author_id,})
 
 class AuthorListView(generic.ListView):
     model = Author
