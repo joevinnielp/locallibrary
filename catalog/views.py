@@ -25,6 +25,17 @@ class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
     def get_queryset(self):
         return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
 
+class LoanedBooksByUserAllListView(LoginRequiredMixin,generic.ListView):
+    """
+    Generic class-based view listing books on loan to current user. 
+    """
+    model = BookInstance
+    template_name ='bookinstance_list_of_all_borrowed_user.html'
+    paginate_by = 10
+    
+    def get_queryset(self):
+        #return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
+        return BookInstance.objects.filter(status__exact='o').order_by('due_back')
 
 ''' def book_detail_view(request,pk):
 	    try:
