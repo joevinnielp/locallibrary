@@ -18,5 +18,8 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^catalog/', include('catalog.urls')),
+    url(r'^', include('catalog.urls')),
+    
+    #Add Django site authentication urls (for login, logout, password management)
+    url(r'^accounts/', include('django.contrib.auth.urls')),
 ]
