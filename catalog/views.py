@@ -9,14 +9,33 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.contrib.auth.decorators import permission_required
 
+#for renew books
+from .forms import RenewBookForm, RenewBookModelForm
+
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 import datetime
 
+#for generic views
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 # Create your views here.
+class AuthorCreate(CreateView):
+    model = Author
+    fields = '__all__'
+    initial={'date_of_death':'12/10/2016',}
+    template_name = "author_form.html"
 
-from .forms import RenewBookForm, RenewBookModelForm
+class AuthorUpdate(UpdateView):
+    model = Author
+    fields = ['first_name','last_name','date_of_birth','date_of_death']
+    template_name = "author_form.html"
+
+class AuthorDelete(DeleteView):
+    model = Author
+    success_url = reverse_lazy('authors')
+    template_name = "author_confirm_delete.html"
 
 @permission_required('catalog.can_mark_returned')
 def renew_book_librarian(request, pk):
