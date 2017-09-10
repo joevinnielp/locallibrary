@@ -149,7 +149,7 @@ class BookListView(generic.ListView):
     template_name = "book_list.html"  # Specify your own template name/location
 
     def get_queryset(self):
-        return Book.objects.filter(title__icontains='')[:5] # Get 5 books containing the title war
+        return Book.objects.filter(title__icontains='')[:1] # Get 5 books containing the title war
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -185,7 +185,7 @@ class AuthorListView(generic.ListView):
     template_name = "author_list.html"  # Specify your own template name/location
 
     def get_queryset(self):
-        return Author.objects.filter(last_name__icontains='')[:5] # Get 5 books containing the title war
+        return Author.objects.filter(last_name__icontains='')[:10] # Get 5 books containing the title war
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
