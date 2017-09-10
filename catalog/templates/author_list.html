@@ -2,6 +2,9 @@
 
 {% block content %}
     <h1>Author List</h1>
+    <form action="{% url 'author_create' %}">
+      <input type="submit" Value="Create Author">
+    </form>
 
     {% if author_list %}
     <ul>
