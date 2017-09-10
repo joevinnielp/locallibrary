@@ -41,7 +41,7 @@ class BookDelete(DeleteView):
 class AuthorCreate(CreateView):
     model = Author
     fields = '__all__'
-    initial={'date_of_death':'12/10/2016',}
+    #initial={'date_of_death':'12/10/2016',}
     template_name = "author_form.html"
 
 class AuthorUpdate(UpdateView):
@@ -106,7 +106,7 @@ class LoanedBooksByUserAllListView(LoginRequiredMixin,generic.ListView):
     """
     model = BookInstance
     template_name ='bookinstance_list_of_all_borrowed_user.html'
-    paginate_by = 10
+    paginate_by = 1
     
     def get_queryset(self):
         #return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
@@ -149,7 +149,7 @@ class BookListView(generic.ListView):
     template_name = "book_list.html"  # Specify your own template name/location
 
     def get_queryset(self):
-        return Book.objects.filter(title__icontains='')[:1] # Get 5 books containing the title war
+        return Book.objects.filter(title__icontains='')[:10] # Get 5 books containing the title war
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -185,7 +185,7 @@ class AuthorListView(generic.ListView):
     template_name = "author_list.html"  # Specify your own template name/location
 
     def get_queryset(self):
-        return Author.objects.filter(last_name__icontains='')[:10] # Get 5 books containing the title war
+        return Author.objects.filter(last_name__icontains='')[:] # Get 5 books containing the title war
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
