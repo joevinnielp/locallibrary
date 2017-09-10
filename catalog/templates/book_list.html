@@ -2,6 +2,11 @@
 
 {% block content %}
     <h1>Book List</h1>
+    {% if user.is_superuser %}
+    <form action="{% url 'book_create' %}">
+      <input type="submit" Value="Create Book">
+    </form>
+    {% endif %}
 
     {% if book_list %}
     <ul>

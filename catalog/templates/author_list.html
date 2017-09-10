@@ -2,9 +2,11 @@
 
 {% block content %}
     <h1>Author List</h1>
+    {% if user.is_superuser %}
     <form action="{% url 'author_create' %}">
       <input type="submit" Value="Create Author">
     </form>
+    {% endif %}
 
     {% if author_list %}
     <ul>

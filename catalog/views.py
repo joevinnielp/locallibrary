@@ -21,6 +21,23 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 # Create your views here.
+#book create, update and delete
+class BookCreate(CreateView):
+    model = Book
+    fields = '__all__'
+    template_name = "book_form.html"
+
+class BookUpdate(UpdateView):
+    model = Book
+    fields = ['title','author','summary','isbn','genre']
+    template_name = "book_form.html"
+
+class BookDelete(DeleteView):
+    model = Book
+    success_url = reverse_lazy('books')
+    template_name = "book_confirm_delete.html"
+
+#author create, update and delete
 class AuthorCreate(CreateView):
     model = Author
     fields = '__all__'

@@ -3,6 +3,15 @@
 {% block content %}
   <h1>Title: {{ book.title }}</h1>
 
+  {% if user.is_superuser %}
+  <form action="{% url 'book_update' book.pk %}">
+    <input type="submit" Value="Update Book">
+  </form>
+  <form action="{% url 'book_delete' book.pk %}">
+    <input type="submit" Value="Delete Book">
+  </form>
+  {% endif %}
+
   <p><strong>Author:</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p> <!-- author detail link not yet defined -->
   <p><strong>Summary:</strong> {{ book.summary }}</p>
   <p><strong>ISBN:</strong> {{ book.isbn }}</p> 

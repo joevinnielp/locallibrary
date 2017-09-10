@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 import datetime #for checking renewal date range.
 from django.forms import ModelForm
-from .models import BookInstance
+from .models import BookInstance, Book
 
 class RenewBookForm(forms.Form):
     renewal_date = forms.DateField(help_text="Enter a date between now and 4 weeks (default 3).")
@@ -42,3 +42,10 @@ class RenewBookModelForm(ModelForm):
         fields = ['due_back',]
         labels = { 'due_back': _('Renewal date'), }
         help_texts = { 'due_back': _('Enter a date between now and 4 weeks (default 3).'), }
+
+''' class CreateBookModelForm(ModelForm):
+  class Meta:
+        model = Book
+        fields = ['title','author','summary','isbn','genre']
+        #labels = { 'due_back': _('Renewal date'), } '''
+        
